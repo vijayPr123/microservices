@@ -44,7 +44,7 @@ public class HomeController {
 		gallery.setId(id);
 
 		// get list of available images 
-		// @SuppressWarnings("unchecked")    // we'll throw an exception from image service to simulate a failure
+		@SuppressWarnings("unchecked")    // we'll throw an exception from image service to simulate a failure
 		List<Object> images = restTemplate.getForObject("http://test-getimages-microservice/images/", List.class);
 		gallery.setImages(images);
 
@@ -60,7 +60,11 @@ public class HomeController {
 	}
 
 	// a fallback method to be called if failure happened
-	public Gallery fallback(int galleryId, Throwable hystrixCommand) {
-		return new Gallery(galleryId);
+	public String fallback(int galleryId, Throwable hystrixCommand) {
+		//return new Gallery(galleryId);
+
+        return "Sorry backend URL is not working. "
+        		+ "You are seeing a Fallback Response!! " 
+        		+ " Host : localhost " + " :: Port : " + env.getProperty("local.server.port");    	
 	}
 }

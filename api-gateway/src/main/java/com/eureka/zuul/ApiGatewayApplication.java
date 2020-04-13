@@ -8,6 +8,8 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 @SpringBootApplication
 @EnableEurekaClient 	// It acts as a eureka client
 @EnableZuulProxy		// Enable Zuul
+//Overriding default Ribbon algorithm from Zuul
+//@RibbonClients(defaultConfiguration = RibbonConfiguration.class)
 public class ApiGatewayApplication {
 
 	public static void main(String[] args) {

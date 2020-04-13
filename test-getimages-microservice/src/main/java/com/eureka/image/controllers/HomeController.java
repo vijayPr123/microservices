@@ -16,6 +16,14 @@ public class HomeController {
 	
 	@Autowired
 	private Environment env;
+	
+	@RequestMapping("/")
+	public String home() {
+		// This is useful for debugging
+		// When having multiple instance of gallery service running at different ports.
+		// We load balance among them, and display which instance received the request.
+		return "Hello from Images Service running at port: " + env.getProperty("local.server.port");
+	}
 		
 	@RequestMapping("/images")
 	public List<Image> getImages() {
