@@ -48,8 +48,9 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 			   .antMatchers("/gallery" + "/admin/**").hasRole("ADMIN")
 			   // Any other request must be authenticated
 			   .anyRequest().authenticated()
-			   .and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
-			   ; 
+			  .and()
+			  	.exceptionHandling()
+			  	.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")); 
 	}
 	
 	@Bean
