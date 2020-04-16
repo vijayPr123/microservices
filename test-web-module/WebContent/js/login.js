@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+	
 	function createCORSRequest(method, url, username, password){
 		var xhr = new XMLHttpRequest();
 		if ("withCredentials" in xhr){
@@ -14,7 +14,7 @@ $(document).ready(function(){
 		return xhr;
 	}
 
-
+	
 
 	$("#loginBtn").click(function() {
 		console.log("Inside Login button submit function");
@@ -44,7 +44,9 @@ $(document).ready(function(){
 			        	if (this.status == 200) {
 			        		var tokenStr = this.getResponseHeader('Auth-Token');
 			        		alert("Success! Token generated is: " + tokenStr);
-				            console.log("Success ! Token generated is: " + tokenStr);				            
+			        		localStorage.setItem('token', tokenStr);
+				            console.log("Success ! Token generated is: " + tokenStr);
+				            window.location.href = "/test-web-module/home.html";
 			        	} else {
 			        		alert("Error! Incorrect credentials!");
 			        	}			        
@@ -58,3 +60,4 @@ $(document).ready(function(){
 		}
 	});
 });
+

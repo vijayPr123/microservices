@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.eureka.common.security.JwtConfig;
@@ -42,11 +43,13 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			   // allow all who are accessing "auth" service
 			   .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll() 
-			   .antMatchers("/", "/login", "/home").permitAll()  
+			   .antMatchers("/", "/login").permitAll()  
 			   // must be an admin if trying to access admin area (authentication is also required here)
 			   .antMatchers("/gallery" + "/admin/**").hasRole("ADMIN")
 			   // Any other request must be authenticated
-			   .anyRequest().authenticated(); 
+			   .anyRequest().authenticated()
+			   .and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
+			   ; 
 	}
 	
 	@Bean

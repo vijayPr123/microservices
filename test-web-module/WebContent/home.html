@@ -3,12 +3,20 @@
 	<head>
 		<title>Microservices Project - Home</title>
 		<meta name="robots" content="noindex, nofollow">
-		
 		<!-- Include CSS File Here -->
 		<link rel="stylesheet" href="css/style.css" />
 		
 		<!-- Include CSS File Here -->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		
+		<!-- validating token here START-->
+		<script type="text/javascript">
+		var loginUri = '/test-web-module/login.html';
+		var validLogin = false;
+		if (localStorage.getItem('token')) validLogin= true;
+		if (!validLogin && location.pathname != loginUri) window.location.assign(loginUri);
+		</script>
+		<!-- validating token here END-->
 		
 	</head>
 	<body>
@@ -16,6 +24,18 @@
 			<div class="main">				
 					<h2>Welcome to Home! </h2>				
 			</div>
+			<div>
+			  <form class="form"  name="logoutFdrm">
+		        <input type="button" name="logoutBtn" id="logoutBtn" value="Logout">
+		       </form>
+			</div>
 		</div>
+		
 	</body>
+	<script type="text/javascript">
+	$("#logoutBtn").click(function() {
+		localStorage.removeItem("token");
+		window.location.href = "/test-web-module/login.html";
+	});
+	</script>
 </html>
