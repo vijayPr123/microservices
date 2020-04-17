@@ -1,6 +1,57 @@
 $(document).ready(function(){
 
-	function createCORSRequest(method, url, username, password){
+	$('#loginBtn').click(function() {
+		console.log("Inside Login button submit function");
+
+		var _username = $("#username").val();
+		var _password = $("#password").val();
+
+		//	Checking for blank fields.
+		if( username =='' || password ==''){
+			$('input[type="text"],input[type="password"]').css("border","2px solid red");
+			$('input[type="text"],input[type="password"]').css("box-shadow","0 0 3px red");
+			alert("Please fill all fields...!!!!!!");
+			
+		} else {
+			console.log("Proceeding for login form submit!");
+			
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/auth", true);
+			
+			// Define a callback function
+			xhr.onload = function(){};	
+			
+			var loginFormObj = {};
+			loginFormObj["username"] = _username;
+			loginFormObj["password"] = _password;
+			
+			xhr.onreadystatechange = function() {
+		        if (this.readyState == 4) {
+		        	if (this.status == 200) {
+		        		var tokenStr = this.getResponseHeader('Auth-Token');
+		        		alert("Success! Token generated is: " + tokenStr);
+		        		
+		        		localStorage.setItem('token', tokenStr);
+			            console.log("Success ! Token generated is: " + tokenStr);
+			            
+			            window.location.href = "/home.html";
+			            
+		        	} else {
+		        		alert("Error! Incorrect credentials!");
+		        		
+		        	}			        
+		        } 
+			}
+			
+			// Send request
+			xhr.send(JSON.stringify(loginFormObj));			
+					
+		}
+	});
+	
+	
+	
+	/* function createCORSRequest(method, url, username, password){
 		var xhr = new XMLHttpRequest();
 		if ("withCredentials" in xhr){
 			// XHR has 'withCredentials' property only if it supports CORS
@@ -12,11 +63,9 @@ $(document).ready(function(){
 			xhr = null;
 		}
 		return xhr;
-	}
+	} */
 
-
-
-	$("#loginBtn").click(function() {
+	/* $("#loginBtn").click(function() {
 		console.log("Inside Login button submit function");
 
 		var username = $("#username").val();
@@ -44,7 +93,9 @@ $(document).ready(function(){
 			        	if (this.status == 200) {
 			        		var tokenStr = this.getResponseHeader('Auth-Token');
 			        		alert("Success! Token generated is: " + tokenStr);
-				            console.log("Success ! Token generated is: " + tokenStr);				            
+			        		localStorage.setItem('token', tokenStr);
+				            console.log("Success ! Token generated is: " + tokenStr);
+				            window.location.href = "/test-web-module/home.html";
 			        	} else {
 			        		alert("Error! Incorrect credentials!");
 			        	}			        
@@ -56,5 +107,5 @@ $(document).ready(function(){
 			}		
 
 		}
-	});
+	}); */
 });
