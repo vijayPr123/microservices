@@ -26,3 +26,16 @@ The series of articles can be found below:
 - [Microservices with Spring Boot — Circuit Breaker & Log Tracing (Part 4)](https://medium.com/omarelgabrys-blog/microservices-with-spring-boot-circuit-breaker-log-tracing-part-4-9cdf5e898988)
 
 
+### See also
+
+- JWT Spring Security Demo [GitHub](https://github.com/szerhusenBC/jwt-spring-security-demo) 
+```
+Flyway Docker Image :
+https://hub.docker.com/r/hubae/jwt-spring-security-demo/
+```
+
+
+
+
+
+
